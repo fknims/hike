@@ -106,8 +106,6 @@ jobs:
 
       - name: Install dependencies via uv
         run: |
-          # Use system Python (3.12) instead of downloading default 3.10
-          export UV_PYTHON=system
           uv sync
 
       - name: Enable PEP-582 path
