@@ -102,11 +102,15 @@ jobs:
           python -m pip install --upgrade pip
 
       - name: Get latest versions and create requirements.txt
+        id: get_openhands_version
         run: |
           python -m pip index versions openhands-ai > openhands_versions.txt
-          OPENHANDS_VERSION=$(head -n 1 openhands_versions.txt | awk '{print $2}' | tr -d '()')
+          OPENHANDS_VERSION=$(head -n 1 openhands_versions.txt \
+            | awk '{print $2}' | tr -d '()')
+          # ここでワークフロー全体に使えるように環境変数登録
+          echo "OPENHANDS_VERSION_TAG=${OPENHANDS_VERSION}" >> $GITHUB_ENV
 
-          # Create a new requirements.txt locally within the workflow, ensuring no reference to the repo's file
+          # requirements はそのまま出力
           echo "openhands-ai==${OPENHANDS_VERSION}" > /tmp/requirements.txt
           cat /tmp/requirements.txt
 
@@ -211,16 +215,14 @@ jobs:
 
       - name: Install OpenHands
         id: install_openhands
-        uses: actions/github-script@v7
-        with:
-          script: |
-            if (isExperimental) {
-              console.log("Installing experimental OpenHands from main…");
-              await exec.exec("pip install git+https://github.com/all-hands-ai/openhands.git@main");
-            } else {
-              console.log("Installing OpenHands from GitHub release…");
-              await exec.exec("pip install git+https://github.com/all-hands-ai/openhands.git@v${{ OPENHANDS_VERSION_TAG }}");
-            }
+        run: |
+          if [ "${{ inputs.is_experimental || '' }}" = "true" ]; then
+            echo "Installing experimental OpenHands from main…"
+            pip install git+https://github.com/all-hands-ai/openhands.git@main
+          else
+            echo "Installing OpenHands v${OPENHANDS_VERSION_TAG} from GitHub release…"
+            pip install git+https://github.com/all-hands-ai/openhands.git@v${OPENHANDS_VERSION_TAG}
+          fi
 
       - name: Attempt to resolve issue
         env:
