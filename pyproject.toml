@@ -7,5 +7,5 @@ requires-python = ">=3.10"
 dependencies = [
     "mediapipe>=0.10.21",
     "ruff>=0.11.11",
-    "openhands @ git+https://github.com/all-hands-ai/openhands.git@main",
+    "openhands-ai @ git+https://github.com/all-hands-ai/openhands.git@main",
 ]
