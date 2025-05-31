@@ -217,9 +217,11 @@ jobs:
       - name: Install OpenHands
         id: install_openhands
         run: |
-          echo "Installing OpenHands from GitHub (bypassing PyPI)…"
+          echo "Installing OpenHands, OpenHands-AI and OpenHands-ACI from GitHub…"
           pip install --upgrade \
-            git+https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/all-hands-ai/openhands.git@main
+            git+https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/all-hands-ai/openhands.git@main \
+            git+https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/all-hands-ai/openhands-ai.git@main \
+            git+https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/all-hands-ai/openhands-aci.git@main
 
       - name: Attempt to resolve issue
         env:
