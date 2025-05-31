@@ -1543,7 +1543,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "mediapipe", specifier = ">=0.10.21" },
-    { name = "openhands-ai", specifier = ">=0.40.0" },
+    { name = "openhands-ai", git = "https://github.com/all-hands-ai/openhands.git?rev=main" },
     { name = "ruff", specifier = ">=0.11.11" },
 ]
 
@@ -2989,8 +2989,8 @@ wheels = [
 
 [[package]]
 name = "openhands-ai"
-version = "0.40.0"
-source = { registry = "https://pypi.org/simple" }
+version = "0.39.2"
+source = { git = "https://github.com/all-hands-ai/openhands.git?rev=main#59858dc73bf7d7e4e7dab16d89a5efdd82057245" }
 dependencies = [
     { name = "aiohttp" },
     { name = "anthropic", extra = ["vertex"] },
@@ -3033,7 +3033,6 @@ dependencies = [
     { name = "pygithub" },
     { name = "pyjwt" },
     { name = "pylatexenc" },
-    { name = "pylcs" },
     { name = "pypdf2" },
     { name = "python-docx" },
     { name = "python-dotenv" },
@@ -3044,6 +3043,7 @@ dependencies = [
     { name = "python-socketio" },
     { name = "pythonnet" },
     { name = "qtconsole" },
+    { name = "rapidfuzz" },
     { name = "redis" },
     { name = "runloop-api-client" },
     { name = "sse-starlette" },
@@ -3057,10 +3057,6 @@ dependencies = [
     { name = "uvicorn" },
     { name = "whatthepatch" },
     { name = "zope-interface" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/b1/f3/522b690e666c722ebdf25eb04d967e24fe6feb77123dee06f0be42326409/openhands_ai-0.40.0.tar.gz", hash = "sha256:bfb19442ad042244050be97389e762e96624e0f8188170ea3e161413ec63a390", size = 711328, upload-time = "2025-05-28T19:55:14.268Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/44/40/d4ffe626522b30967ac9c319de74f41e609d5cfc79f33e9d4ae8de196809/openhands_ai-0.40.0-py3-none-any.whl", hash = "sha256:f1cf3d3acd8e7f2ab77c8bb8a9f868c075bcf29aeb9dd60e837a08e5b0574107", size = 885449, upload-time = "2025-05-28T19:55:11.255Z" },
 ]
 
 [[package]]
@@ -3512,15 +3508,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pybind11"
-version = "2.13.6"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/d2/c1/72b9622fcb32ff98b054f724e213c7f70d6898baa714f4516288456ceaba/pybind11-2.13.6.tar.gz", hash = "sha256:ba6af10348c12b24e92fa086b39cfba0eff619b61ac77c406167d813b096d39a", size = 218403, upload-time = "2024-09-14T00:35:22.606Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/13/2f/0f24b288e2ce56f51c920137620b4434a38fd80583dbbe24fc2a1656c388/pybind11-2.13.6-py3-none-any.whl", hash = "sha256:237c41e29157b962835d356b370ededd57594a26d5894a795960f0047cb5caf5", size = 243282, upload-time = "2024-09-14T00:35:20.361Z" },
-]
-
-[[package]]
 name = "pycodestyle"
 version = "2.13.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3705,15 +3692,6 @@ name = "pylatexenc"
 version = "2.10"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/5d/ab/34ec41718af73c00119d0351b7a2531d2ebddb51833a36448fc7b862be60/pylatexenc-2.10.tar.gz", hash = "sha256:3dd8fd84eb46dc30bee1e23eaab8d8fb5a7f507347b23e5f38ad9675c84f40d3", size = 162597, upload-time = "2021-04-06T07:56:07.854Z" }
-
-[[package]]
-name = "pylcs"
-version = "0.1.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "pybind11" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/7e/7f/9ca900387de8f3d3658dbf7d0aba96aa2a69f4f5329c83af9be98dc7307d/pylcs-0.1.1.tar.gz", hash = "sha256:632c69235d77cda0ba524d82796878801d2f46131fc59e730c98767fc4ce1307", size = 11274, upload-time = "2023-10-24T23:56:24.576Z" }
 
 [[package]]
 name = "pynacl"

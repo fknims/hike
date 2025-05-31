@@ -9,3 +9,6 @@ dependencies = [
     "openhands-ai>=0.40.0",
     "ruff>=0.11.11",
 ]
+
+[tool.uv.sources]
+openhands-ai = { git = "https://github.com/all-hands-ai/openhands.git", rev = "main" }
