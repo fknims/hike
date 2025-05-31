@@ -106,12 +106,11 @@ jobs:
 
       - name: Add OpenHands dependency to uv
         run: |
-          uv add git+https://github.com/fknims/OpenHands.git@relax-deps#egg=openhands-ai --frozen
+          echo "Using pyproject.toml for OpenHands dependency; skipping uv add"
 
       - name: Install dependencies via uv
         run: |
-          # Synchronize lock and install all non-dev dependencies into __pypackages__
-          uv sync --frozen --no-dev
+          uv sync --no-interaction
 
       - name: Enable PEP-582 path
         run: echo "PYTHONPATH=${GITHUB_WORKSPACE}/__pypackages__/3.12/lib" >> $GITHUB_ENV
