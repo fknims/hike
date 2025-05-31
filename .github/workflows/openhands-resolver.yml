@@ -236,8 +236,8 @@ jobs:
           else
             echo "Installing mediapipe from PyPI…"
             pip install mediapipe
-            echo "Installing OpenHands v${OPENHANDS_VERSION_TAG} from PyPI…"
-            pip install -r /tmp/requirements.txt
+            echo "Installing OpenHands v${OPENHANDS_VERSION_TAG} from PyPI (skip deps)…"
+            pip install openhands==${OPENHANDS_VERSION_TAG} --no-deps
           fi
 
       - name: Attempt to resolve issue
