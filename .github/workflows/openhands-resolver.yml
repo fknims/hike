@@ -236,8 +236,8 @@ jobs:
           else
             echo "Installing mediapipe from PyPI…"
             pip install mediapipe
-            echo "Installing OpenHands v${OPENHANDS_VERSION_TAG} from GitHub release…"
-            pip install git+https://github.com/all-hands-ai/openhands.git@v${OPENHANDS_VERSION_TAG}
+            echo "Installing OpenHands from GitHub main…"
+            pip install git+https://github.com/all-hands-ai/openhands.git@main
           fi
 
       - name: Attempt to resolve issue
