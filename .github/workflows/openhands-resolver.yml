@@ -217,8 +217,11 @@ jobs:
       - name: Install OpenHands
         id: install_openhands
         run: |
-          echo "Installing OpenHands from GitHub main (bypassing PyPI mediapipe issue)…"
-          pip install --upgrade git+https://github.com/all-hands-ai/openhands.git@main
+          echo "Installing OpenHands ecosystem from GitHub (bypassing PyPI)…"
+          pip install --upgrade \
+            git+https://github.com/all-hands-ai/openhands.git@main \
+            git+https://github.com/all-hands-ai/openhands-ai.git@main \
+            git+https://github.com/all-hands-ai/openhands-aci.git@main
 
       - name: Attempt to resolve issue
         env:
