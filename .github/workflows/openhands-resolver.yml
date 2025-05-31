@@ -236,13 +236,12 @@ jobs:
 
             // Perform package installation
             if (isExperimentalLabel || isIssueCommentExperimental || isReviewCommentExperimental) {
-              console.log("Installing experimental OpenHands...");
-
-              await exec.exec("pip install git+https://github.com/all-hands-ai/openhands.git");
+              console.log("Installing experimental OpenHands from main…")
+              await exec.exec("pip install git+https://github.com/all-hands-ai/openhands.git@main")
             } else {
-              console.log("Installing from requirements.txt...");
-
-              await exec.exec("pip install -r /tmp/requirements.txt");
+              console.log("Installing latest OpenHands from PyPI…")
+              // openhands と openhands-ai の両方を最新化
+              await exec.exec("pip install --upgrade openhands openhands-ai")
             }
 
       - name: Attempt to resolve issue
