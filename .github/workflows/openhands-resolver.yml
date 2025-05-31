@@ -110,7 +110,7 @@ jobs:
 
       - name: Install dependencies via uv
         run: |
-          uv sync --no-interaction
+          uv sync
 
       - name: Enable PEP-582 path
         run: echo "PYTHONPATH=${GITHUB_WORKSPACE}/__pypackages__/3.12/lib" >> $GITHUB_ENV
