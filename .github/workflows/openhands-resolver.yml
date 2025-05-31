@@ -104,14 +104,15 @@ jobs:
       - name: Get latest versions and create requirements.txt
         id: get_openhands_version
         run: |
-          python -m pip index versions openhands-ai > openhands_versions.txt
+          # PyPI で公開されているのは `openhands` なのでこちらを参照
+          python -m pip index versions openhands > openhands_versions.txt
           OPENHANDS_VERSION=$(head -n 1 openhands_versions.txt \
             | awk '{print $2}' | tr -d '()')
-          # ここでワークフロー全体に使えるように環境変数登録
+          # 全ステップで使えるよう登録
           echo "OPENHANDS_VERSION_TAG=${OPENHANDS_VERSION}" >> $GITHUB_ENV
 
-          # requirements はそのまま出力
-          echo "openhands-ai==${OPENHANDS_VERSION}" > /tmp/requirements.txt
+          # requirements.txt には openhands のみ
+          echo "openhands==${OPENHANDS_VERSION}" > /tmp/requirements.txt
           cat /tmp/requirements.txt
 
       - name: Cache pip dependencies
@@ -220,8 +221,11 @@ jobs:
             echo "Installing experimental OpenHands from main…"
             pip install git+https://github.com/all-hands-ai/openhands.git@main
           else
-            echo "Installing OpenHands v${OPENHANDS_VERSION_TAG} from GitHub release…"
-            pip install git+https://github.com/all-hands-ai/openhands.git@v${OPENHANDS_VERSION_TAG}
+            echo "Installing OpenHands v${OPENHANDS_VERSION_TAG} from PyPI…"
+            pip install -r /tmp/requirements.txt
+
+            # 必要なら openhands-ai を GitHub から入れる
+            # pip install git+https://github.com/all-hands-ai/openhands.git@main#egg=openhands-ai
           fi
 
       - name: Attempt to resolve issue
