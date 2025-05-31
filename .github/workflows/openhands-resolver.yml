@@ -236,8 +236,8 @@ jobs:
           else
             echo "Installing mediapipe from PyPI…"
             pip install mediapipe
-            echo "Installing OpenHands v${OPENHANDS_VERSION_TAG} from PyPI (skip deps)…"
-            pip install openhands==${OPENHANDS_VERSION_TAG} --no-deps
+            echo "Installing OpenHands v${OPENHANDS_VERSION_TAG} from GitHub release…"
+            pip install git+https://github.com/all-hands-ai/openhands.git@v${OPENHANDS_VERSION_TAG}
           fi
 
       - name: Attempt to resolve issue
