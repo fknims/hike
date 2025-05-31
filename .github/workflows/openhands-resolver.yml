@@ -217,16 +217,8 @@ jobs:
       - name: Install OpenHands
         id: install_openhands
         run: |
-          if [ "${{ inputs.is_experimental || '' }}" = "true" ]; then
-            echo "Installing experimental OpenHands from main…"
-            pip install git+https://github.com/all-hands-ai/openhands.git@main
-          else
-            echo "Installing OpenHands v${OPENHANDS_VERSION_TAG} from PyPI…"
-            pip install -r /tmp/requirements.txt
-
-            # 必要なら openhands-ai を GitHub から入れる
-            # pip install git+https://github.com/all-hands-ai/openhands.git@main#egg=openhands-ai
-          fi
+          echo "Installing OpenHands from GitHub main (bypassing PyPI mediapipe issue)…"
+          pip install --upgrade git+https://github.com/all-hands-ai/openhands.git@main
 
       - name: Attempt to resolve issue
         env:
