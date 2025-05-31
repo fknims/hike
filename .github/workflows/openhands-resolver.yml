@@ -234,8 +234,8 @@ jobs:
             echo "Installing experimental OpenHands from GitHub…"
             pip install git+https://github.com/all-hands-ai/openhands.git@main
           else
-            echo "Installing mediapipe wheel…"
-            pip install https://github.com/google/mediapipe/releases/download/v0.8.7.3/mediapipe_python-0.8.7.3-cp310-cp310-manylinux2014_x86_64.whl
+            echo "Installing mediapipe from PyPI…"
+            pip install mediapipe
             echo "Installing OpenHands v${OPENHANDS_VERSION_TAG} from PyPI…"
             pip install -r /tmp/requirements.txt
           fi
