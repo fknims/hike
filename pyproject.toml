@@ -6,6 +6,9 @@ readme = "README.md"
 requires-python = ">=3.12,<3.14"
 dependencies = [
     "mediapipe>=0.8.7.3",
-    "openhands-ai @ git+https://github.com/fknims/OpenHands.git@relax-deps#egg=openhands-ai",
+    "openhands-ai",
     "ruff>=0.11.11",
 ]
+
+[tool.uv.sources]
+openhands-ai = { git = "https://github.com/fknims/OpenHands.git", rev = "relax-deps" }
