@@ -1542,8 +1542,8 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "mediapipe", specifier = ">=0.10.21" },
-    { name = "openhands-ai", git = "https://github.com/all-hands-ai/openhands.git?rev=main" },
+    { name = "mediapipe", specifier = ">=0.8.7.3" },
+    { name = "openhands-ai", git = "https://github.com/fknims/OpenHands.git?rev=relax-deps" },
     { name = "ruff", specifier = ">=0.11.11" },
 ]
 
@@ -2990,7 +2990,7 @@ wheels = [
 [[package]]
 name = "openhands-ai"
 version = "0.39.2"
-source = { git = "https://github.com/all-hands-ai/openhands.git?rev=main#59858dc73bf7d7e4e7dab16d89a5efdd82057245" }
+source = { git = "https://github.com/fknims/OpenHands.git?rev=relax-deps#f3bc0e5ffe7b854f2245e44fca259fa713e712f2" }
 dependencies = [
     { name = "aiohttp" },
     { name = "anthropic", extra = ["vertex"] },
@@ -3026,6 +3026,7 @@ dependencies = [
     { name = "opentelemetry-exporter-otlp-proto-grpc" },
     { name = "pathspec" },
     { name = "pexpect" },
+    { name = "pillow" },
     { name = "poetry" },
     { name = "prompt-toolkit" },
     { name = "protobuf" },

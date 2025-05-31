@@ -106,7 +106,7 @@ jobs:
 
       - name: Add OpenHands dependency to uv
         run: |
-          uv add openhands@git+https://github.com/all-hands-ai/openhands.git@main
+          uv add git+https://github.com/fknims/OpenHands.git@relax-deps#egg=openhands-ai --frozen
 
       - name: Install dependencies via uv
         run: |
