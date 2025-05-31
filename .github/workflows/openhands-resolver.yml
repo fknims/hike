@@ -224,29 +224,21 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
         with:
           script: |
-            const commentBody = process.env.COMMENT_BODY.trim();
-            const reviewBody = process.env.REVIEW_BODY.trim();
-            const labelName = process.env.LABEL_NAME.trim();
-            const eventName = process.env.EVENT_NAME.trim();
-            // Check conditions
-            const isExperimentalLabel = labelName === "fix-me-experimental";
-            const isIssueCommentExperimental =
-              (eventName === "issue_comment" || eventName === "pull_request_review_comment") &&
-              commentBody.includes("@openhands-agent-exp");
-            const isReviewCommentExperimental =
-              eventName === "pull_request_review" && reviewBody.includes("@openhands-agent-exp");
+            const isExp = isExperimentalLabel || isIssueCommentExperimental || isReviewCommentExperimental;
+            core.setOutput('isExperimental', isExp);
 
-            // Set output variable
-            core.setOutput('isExperimental', isExperimentalLabel || isIssueCommentExperimental || isReviewCommentExperimental);
-
-            // Perform package installation
-            if (isExperimentalLabel || isIssueCommentExperimental || isReviewCommentExperimental) {
-              console.log("Installing experimental OpenHands...");
-
+            if (isExp) {
+              console.log("Installing experimental OpenHands from GitHub…");
               await exec.exec("pip install git+https://github.com/all-hands-ai/openhands.git");
             } else {
-              console.log("Installing from requirements.txt...");
+              console.log("Installing mediapipe 0.8.7.3 wheel from GitHub releases…");
+              await exec.exec(
+                "pip install " +
+                "https://github.com/google/mediapipe/releases/download/v0.8.7.3/" +
+                "mediapipe_python-0.8.7.3-cp310-cp310-manylinux2014_x86_64.whl"
+              );
 
+              console.log("Installing OpenHands v${OPENHANDS_VERSION_TAG} from PyPI…");
               await exec.exec("pip install -r /tmp/requirements.txt");
             }
 
