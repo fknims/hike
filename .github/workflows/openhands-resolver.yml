@@ -112,7 +112,6 @@ jobs:
         run: |
           # Lock and install non-dev dependencies into __pypackages__
           uv sync --no-dev
-          uv install --no-dev
 
       - name: Enable PEP-582 path
         run: echo "PYTHONPATH=${GITHUB_WORKSPACE}/__pypackages__/3.12/lib" >> $GITHUB_ENV
