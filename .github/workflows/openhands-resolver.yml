@@ -113,7 +113,7 @@ jobs:
           uv sync
 
       - name: Enable PEP-582 path
-        run: echo "PYTHONPATH=$(pwd)/__pypackages__/3.12/lib" >> $GITHUB_ENV
+        run: echo "PYTHONPATH=$(pwd)/__pypackages__/3.12/lib/python3.12/site-packages" >> $GITHUB_ENV
 
       - name: Check required environment variables
         env:
