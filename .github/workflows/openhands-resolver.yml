@@ -195,7 +195,7 @@ jobs:
               body: `[OpenHands](https://github.com/All-Hands-AI/OpenHands) started fixing the ${issueType}! You can monitor the progress [here](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).`
             });
 
-      - name: Attempt to resolve issue
+      - name: Attempt to resolve issue (using uv environment)
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || github.token }}
           GITHUB_USERNAME: ${{ secrets.PAT_USERNAME || 'openhands-agent' }}
@@ -204,8 +204,9 @@ jobs:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
           LLM_API_VERSION: ${{ inputs.LLM_API_VERSION }}
+          PYTHONPATH: $(pwd)/__pypackages__/3.12/lib
         run: |
-          cd /tmp && uv run python -m openhands.resolver.resolve_issue \
+          uv run python -m openhands.resolver.resolve_issue \
             --selected-repo ${{ github.repository }} \
             --issue-number $ISSUE_NUMBER \
             --issue-type $ISSUE_TYPE \
