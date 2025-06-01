@@ -110,10 +110,12 @@ jobs:
 
       - name: Install dependencies via uv
         run: |
-          uv sync
+          # Lock and install non-dev dependencies into __pypackages__
+          uv sync --no-dev
+          uv install --no-dev
 
       - name: Enable PEP-582 path
-        run: echo "PYTHONPATH=$(pwd)/__pypackages__/3.12/lib/python3.12/site-packages" >> $GITHUB_ENV
+        run: echo "PYTHONPATH=${GITHUB_WORKSPACE}/__pypackages__/3.12/lib" >> $GITHUB_ENV
 
       - name: Check required environment variables
         env:
@@ -203,9 +205,8 @@ jobs:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
           LLM_API_VERSION: ${{ inputs.LLM_API_VERSION }}
-          PYTHONPATH: ${{ env.PYTHONPATH }}
         run: |
-          cd /tmp && python -m openhands.resolver.resolve_issue \
+          cd /tmp && uv run python -m openhands.resolver.resolve_issue \
             --selected-repo ${{ github.repository }} \
             --issue-number $ISSUE_NUMBER \
             --issue-type $ISSUE_TYPE \
@@ -240,17 +241,16 @@ jobs:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
           LLM_API_VERSION: ${{ inputs.LLM_API_VERSION }}
-          PYTHONPATH: ${{ env.PYTHONPATH }}
         run: |
           if [ "${{ steps.check_result.outputs.RESOLUTION_SUCCESS }}" == "true" ]; then
-            cd /tmp && python -m openhands.resolver.send_pull_request \
+            cd /tmp && uv run python -m openhands.resolver.send_pull_request \
               --issue-number $ISSUE_NUMBER \
               --target-branch $TARGET_BRANCH \
               --pr-type ${{ inputs.pr_type || 'draft' }} \
               --reviewer ${{ github.actor }} | tee pr_result.txt && \
               grep "PR created" pr_result.txt | sed 's/.*\///g' > pr_number.txt
           else
-            cd /tmp && python -m openhands.resolver.send_pull_request \
+            cd /tmp && uv run python -m openhands.resolver.send_pull_request \
               --issue-number $ISSUE_NUMBER \
               --pr-type branch \
               --send-on-failure | tee branch_result.txt && \
